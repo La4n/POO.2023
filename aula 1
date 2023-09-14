@@ -1,0 +1,45 @@
+package aula01;
+
+import javax.swing.JOptionPane;
+
+public class Aula01 {
+
+    public static void main(String[] args) {
+        String nome, mensagem = "";
+        int idade;
+        boolean ativa;
+
+        /* Scanner s = new Scanner(System.in);
+        
+        System.out.println("Digite o nome: ");
+    nome  = s.next();
+        System.out.println("Digite o idade: ");
+    idade  = s.nextInt();
+    System.out.println("Digite a situação: ");
+    ativa = s.nextBoolean();
+         */
+        nome = JOptionPane.showInputDialog("digite o nome: ");
+        String resposta = JOptionPane.showInputDialog("digite a idade: ");
+        idade = Integer.parseInt(resposta);
+        resposta = JOptionPane.showInputDialog("Digite a situação: ");
+        if (resposta.equalsIgnoreCase("ativo")) {
+            ativa = true;
+        } else {
+            ativa = false;
+        }
+
+        /*  System.out.println ("nome: " + nome);
+    System.out.println ("idade: " + idade);
+         */
+        if (!resposta.equalsIgnoreCase("ativo")) {
+            mensagem = "Usuário inativo no sistema!";
+        } else if (idade < 18) {
+            mensagem = "menor de idade";
+
+        } else {
+            mensagem = "maior de idade";
+        }
+        JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nIdade: " + idade + "\n" + mensagem);
+
+    }
+}
