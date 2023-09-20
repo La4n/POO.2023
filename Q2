@@ -1,0 +1,84 @@
+/*
+Escreva um procedimento que recebe as 3 notas de um aluno por parâmetro e uma
+letra. Se a letra for A o procedimento calcula e imprime a média aritmética das notas
+do aluno, se for P, a sua média ponderada (pesos: 5, 3 e 2) e se for H, a sua média
+harmônica.
+*/
+package aula03;
+
+import javax.swing.JOptionPane;
+
+public class Q2 {
+
+    static float nts(){
+      String t;
+        float n;
+       
+        t = JOptionPane.showInputDialog("Valor da nota 1: ");
+        n = Integer.parseInt(t);
+        
+    return n;
+    }
+    static float A(float x,float y,float z){
+        float a;
+        a = (x+y+z)/3;
+        
+        return a;
+    }
+     static float P(float x,float y,float z){
+        float a;
+        a = (x*5+y*3+z*2)/10;
+        
+        return a;
+    }
+     static float H(float x,float y,float z){
+        float a;
+        a = 3/(1/x + 1/y + 1/z);
+        
+        return a;
+    }
+     
+     static void res(float m){
+         
+         JOptionPane.showMessageDialog(null,"A media é: \n"+ m);
+
+     }
+    public static void main(String[] args) {
+        
+      String reti = null,rs;
+        float nota1,nota2,nota3,media;
+        
+      
+            nota1 = nts();
+            nota2 = nts();
+            nota3 = nts();   
+           
+        rs = JOptionPane.showInputDialog("A = média aritmética\nP = média ponderada\nH = média harmônica");
+
+            switch(rs){
+                case "A":
+                    media = A(nota1,nota2,nota3);
+                res(media);
+                    break;
+                    
+                case "P":
+                    media = P(nota1,nota2,nota3);
+                res(media);
+                    break;
+                    
+                case "H":
+                    media = H(nota1,nota2,nota3);
+                  res(media);
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+    
+    
+    } 
+        }
+
+
+    
