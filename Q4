@@ -1,0 +1,50 @@
+/*
+Faça uma um procedimento que recebe por parâmetro o tempo de duração de uma
+fábrica expressa em segundos e imprima esse tempo em horas, minutos e segundos
+(hh:mm:ss).
+*/
+package aula03;
+
+import javax.swing.JOptionPane;
+
+public class Q4 {
+
+  static int segundos(){
+      String j;
+      int n;
+      
+      j = JOptionPane.showInputDialog("Informe os Segundo: ");
+      n = Integer.parseInt(j);
+      
+      return n;
+  } 
+  static int minutos(int s){
+  int m;
+  
+  return m = s/60;
+  
+  }  
+  static int horas(int m){
+      int h;
+      return h = m/60;
+  }
+  static void fim(int h,int q,int r){
+      int mm,ss;
+      
+        mm = q%60;
+        ss = r%60;
+        
+        JOptionPane.showMessageDialog(null,q+" Segundos é equivale a: \n"+h+":"+mm+":"+ss);
+        
+  }
+    public static void main(String[] args) {
+        int s,m,h,mm,ss;
+        
+        s = segundos();
+        m = minutos(s);
+        h = horas(m);
+        fim(h,m,s);
+        
+    }
+    
+}
