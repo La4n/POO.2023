@@ -1,10 +1,10 @@
 
 package caneta1;
 
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 
 public class frmCaneta extends javax.swing.JFrame {
@@ -50,6 +50,7 @@ public class frmCaneta extends javax.swing.JFrame {
         jbtnSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtCaneta = new javax.swing.JTable();
+        jbtnDelet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,6 +164,13 @@ public class frmCaneta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtCaneta);
 
+        jbtnDelet.setText("Deletar");
+        jbtnDelet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDeletActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +186,9 @@ public class frmCaneta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbtnExibi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbtnSair))
+                                .addComponent(jbtnSair)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtnDelet))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -267,7 +277,8 @@ public class frmCaneta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(jbtnExibi)
-                    .addComponent(jbtnSair))
+                    .addComponent(jbtnSair)
+                    .addComponent(jbtnDelet))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -345,6 +356,17 @@ public class frmCaneta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtModeloActionPerformed
 
+    private void jbtnDeletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeletActionPerformed
+        int selecinado;
+
+        if(jtCaneta.getSelectedRow() != -1){
+            modelo.removeRow(jtCaneta.getSelectedRow());
+        }else{ 
+        JOptionPane.showMessageDialog(this, "!!SELECIONE UMA LINHA!!");
+        }
+        
+    }//GEN-LAST:event_jbtnDeletActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Cor;
@@ -359,6 +381,7 @@ public class frmCaneta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSliCarga;
+    private javax.swing.JButton jbtnDelet;
     private javax.swing.JButton jbtnExibi;
     private javax.swing.JButton jbtnSair;
     private javax.swing.JLabel jlbCarga;
