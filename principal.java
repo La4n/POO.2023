@@ -1,10 +1,14 @@
 package caneta1;
 
-import java.util.Scanner;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class principal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
      /* caneta1 caneta = new caneta1();
       
       
@@ -27,6 +31,21 @@ public class principal {
       erro = caneta.destampar();
       if(erro>0) System.out.println("A caneta já está destampada!");
     }*/
-      new frmCaneta().setVisible(true);
-    }  
+     
+    
+    File Arquivo = new File("C:\\Users\\aluno\\Desktop/Arquivo.csv");
+    
+    try {
+	Arquivo.createNewFile();
+	System.out.print("Arquivo criado com sucesso!");
+			
+    } catch (IOException e) {
+	e.printStackTrace();
 }
+   
+       
+     
+    new frmCaneta().setVisible(true);
+   
+    }
+    }  

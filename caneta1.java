@@ -7,6 +7,11 @@ public class caneta1 {
     float ponta;
     int carga;
     boolean tampada;
+  
+    
+  /*  public caneta1(String modelo,String Cor,String tamp,float ponta){
+    this.modelo = modelo;
+}*/
     
     public String Escrever(){
         return "Escrevendo...";
