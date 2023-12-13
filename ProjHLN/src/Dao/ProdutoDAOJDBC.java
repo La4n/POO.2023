@@ -21,7 +21,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
     public int inserir(ClassProd Produto) {
     
          StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("insert into produtoo(Produto, Quantidade, Preco, Codigo)").append("values(?, ?, ?, ?)");
+        sqlBuilder.append("insert into produtoo(Posicao, Produto, Quantidade, Preco, Codigo)").append("values(?, ?, ?, ?, ?)");
      
         String insert = sqlBuilder.toString();
         int linha = 0;
@@ -49,8 +49,30 @@ public class ProdutoDAOJDBC implements ProdDAO{
     
 
      @Override
-    public int editar(ClassProd Produto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int Comprar(ClassProd Produto) {
+        
+        String update = "UPDATE produtoo SET Produto = ?, Quantidade = ?,  Preco = ?, Codigo = ? WHERE Posicao = ?";
+        int linha = 0;
+        try {
+            conexao = ConexaoSql.getConexao();
+             System.out.println("TT: " + update);
+            sql = (PreparedStatement) conexao.prepareStatement(update);
+            
+            sql.setString(1, Produto.getProduto());
+            sql.setInt(2, Produto.getQuantidade());
+            sql.setFloat(3, Produto.getPreco());
+            sql.setInt(4, Produto.getCodigo());
+            sql.setInt(5, Produto.getPosicao());
+            
+            System.out.println(sql);
+            linha = sql.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            fecharConexao();
+        }
+
+        return linha;
     }
 
      @Override
@@ -67,7 +89,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
             sql = (PreparedStatement) conexao.prepareStatement(delete);
             sql.setInt(1, id);
             linha = sql.executeUpdate();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

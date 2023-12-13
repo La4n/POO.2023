@@ -1,4 +1,3 @@
-
 package projhln;
 
 import Conexao.ConexaoSql;
@@ -12,40 +11,40 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-        
 public class JFrameP extends javax.swing.JFrame {
-         
+
     Connection conexao = null;
     ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
     private final DefaultTableModel modelo;
-    
+
     public JFrameP() {
         initComponents();
-         modelo = (DefaultTableModel) ControleEstq.getModel();
-        
+        modelo = (DefaultTableModel) ControleEstq.getModel();
+
         try {
-           conexao = ConexaoSql.getConexao();
+            conexao = ConexaoSql.getConexao();
             lblMensagem.setText("!!CONECTADO AO BD!!");
-            
+
         } catch (Exception ex) {
-           lblMensagem.setText("!!SEM CONEXÃO COM O BD!!");
+            lblMensagem.setText("!!SEM CONEXÃO COM O BD!!");
             Logger.getLogger(JFrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-     private void preencherTabela() {
+
+    private void preencherTabela() {
         modelo.getDataVector().clear();
         try {
-           for( ClassProd Produto : ProdutoDAO.listar()){
-                modelo.addRow(new Object[]{Produto.getPosicao(),Produto.getProduto(), Produto.getQuantidade(), Produto.getPreco(),
-                            Produto.getCodigo()}
+            for (ClassProd Produto : ProdutoDAO.listar()) {
+                modelo.addRow(new Object[]{Produto.getPosicao(), Produto.getProduto(), Produto.getQuantidade(), Produto.getPreco(),
+                    Produto.getCodigo()}
                 );
             }
         } catch (Exception e) {
             throw e;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,7 +52,7 @@ public class JFrameP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ControleEstq = new javax.swing.JTable();
         BtnInserir = new javax.swing.JButton();
-        BrnEditar = new javax.swing.JButton();
+        BrnComprar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         lblMensagem = new javax.swing.JLabel();
         btnApagar = new javax.swing.JToggleButton();
@@ -99,7 +98,12 @@ public class JFrameP extends javax.swing.JFrame {
             }
         });
 
-        BrnEditar.setText("Editar");
+        BrnComprar.setText("Comprar");
+        BrnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BrnComprarActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +133,7 @@ public class JFrameP extends javax.swing.JFrame {
                 .addGap(94, 94, 94)
                 .addComponent(BtnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(BrnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BrnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnApagar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,7 +145,7 @@ public class JFrameP extends javax.swing.JFrame {
                 .addGap(214, 214, 214))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnEditar, BtnInserir, btnApagar, btnSair});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnComprar, BtnInserir, btnApagar, btnSair});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,41 +157,39 @@ public class JFrameP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnInserir)
-                    .addComponent(BrnEditar)
+                    .addComponent(BrnComprar)
                     .addComponent(btnSair)
                     .addComponent(btnApagar))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BrnEditar, BtnInserir, btnSair});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BrnComprar, BtnInserir, btnSair});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInserirActionPerformed
-   
-        
-        
-        
-          JFInserir modelo = new JFInserir();
-          modelo.setVisible(true);
-          modelo.pack();
-          modelo.setLocationRelativeTo(null);
-          modelo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JFInserir modelo = new JFInserir();
+        modelo.setVisible(true);
+        modelo.pack();
+        modelo.setLocationRelativeTo(null);
+        modelo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_BtnInserirActionPerformed
 
-    public static void AddRowToControleEstq(Object[] dataRow){
-        
+    public static void AddRowToControleEstq(Object[] dataRow) {
+
         DefaultTableModel modelo = (DefaultTableModel) ControleEstq.getModel();
         modelo.addRow(dataRow);
-        
-    }
-    public void apagar(){
-           try {
-            Integer id =  (Integer) modelo.getValueAt(ControleEstq.getSelectedRow(),0);
 
-            int linha = ProdutoDAO.apagar(id);
-            
+    }
+
+    public void apagar() {
+        try {
+            Integer i = (Integer) modelo.getValueAt(ControleEstq.getSelectedRow(), 0);
+
+            int linha = ProdutoDAO.apagar(i);
+
             if (linha > 0) {
                 modelo.removeRow(ControleEstq.getSelectedRow());
                 JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
@@ -197,34 +199,45 @@ public class JFrameP extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Por favor, selecionar uma linha da tabela");
-        } 
+        }
     }
-    
+
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-    preencherTabela();
+        preencherTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-      
+
     }//GEN-LAST:event_formFocusGained
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-     /* Object[] opcao = {"Não", "Sim"};
+        /* Object[] opcao = {"Não", "Sim"};
         int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente apagar?", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
         if (opcaoSelecionada == 1) {*/
+        if(ControleEstq.getSelectedRow() != -1){
+            ClassProd produto = new ClassProd();
+            produto.setCodigo((int) ControleEstq.getValueAt(ControleEstq.getSelectedRow(), 0));
             apagar();
-       // }
+        } else {
+            JOptionPane.showMessageDialog(this, "Escolha uma linha");
+        }
+        
+        // }
     }//GEN-LAST:event_btnApagarActionPerformed
 
-    
-    
+    private void BrnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrnComprarActionPerformed
+        new JFCompra().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BrnComprarActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BrnEditar;
+    private javax.swing.JButton BrnComprar;
     private javax.swing.JButton BtnInserir;
     private static javax.swing.JTable ControleEstq;
     private javax.swing.JToggleButton btnApagar;

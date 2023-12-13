@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class JFInserir extends javax.swing.JFrame {
 
   ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
-         int codigo = 0;
+       int  posi;
     public JFInserir() {
         initComponents();
    
@@ -167,11 +167,13 @@ int quantidade;
 quantidade = Integer.parseInt(TxtQuantidade.getText());
 preco = Float.parseFloat(TxtPreco.getText());
 
-codigo++;
+ for( ClassProd Produto : ProdutoDAO.listar()){
+posi = 1 + Produto.getPosicao() ;
+ }
         ClassProd Produto = new ClassProd();
 
         
-        Produto.setPosicao(codigo);
+        Produto.setPosicao(posi);
         Produto.setProduto(TxtProduto.getText());
         Produto.setQuantidade(Integer.parseInt(TxtQuantidade.getText()));
         Produto.setPreco(Float.parseFloat(TxtPreco.getText()));
