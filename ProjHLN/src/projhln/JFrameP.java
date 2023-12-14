@@ -23,10 +23,10 @@ public class JFrameP extends javax.swing.JFrame {
 
         try {
             conexao = ConexaoSql.getConexao();
-            lblMensagem.setText("!!CONECTADO AO BD!!");
+            
 
         } catch (Exception ex) {
-            lblMensagem.setText("!!SEM CONEXÃO COM O BD!!");
+       
             Logger.getLogger(JFrameP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -54,8 +54,9 @@ public class JFrameP extends javax.swing.JFrame {
         BtnInserir = new javax.swing.JButton();
         BrnComprar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        lblMensagem = new javax.swing.JLabel();
         btnApagar = new javax.swing.JToggleButton();
+        BtnVender = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(350, 250));
@@ -78,7 +79,7 @@ public class JFrameP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Posicão", "Produto", "Quantidade", "Preço R$", "Codigo"
+                "Posicao", "Produto", "Quantidade", "Preco", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -112,12 +113,24 @@ public class JFrameP extends javax.swing.JFrame {
             }
         });
 
-        lblMensagem.setText("  ");
-
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
+            }
+        });
+
+        BtnVender.setText("Vender");
+        BtnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVenderActionPerformed(evt);
+            }
+        });
+
+        BtnEditar.setText("Editar");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
             }
         });
 
@@ -127,40 +140,42 @@ public class JFrameP extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(BtnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(BrnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnApagar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BtnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(BrnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnVender)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnApagar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnComprar, BtnInserir, btnApagar, btnSair});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnComprar, BtnEditar, BtnInserir, BtnVender, btnApagar, btnSair});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(lblMensagem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnInserir)
                     .addComponent(BrnComprar)
                     .addComponent(btnSair)
-                    .addComponent(btnApagar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(btnApagar)
+                    .addComponent(BtnVender)
+                    .addComponent(BtnEditar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BrnComprar, BtnInserir, btnSair});
@@ -175,6 +190,7 @@ public class JFrameP extends javax.swing.JFrame {
         modelo.pack();
         modelo.setLocationRelativeTo(null);
         modelo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.dispose();
     }//GEN-LAST:event_BtnInserirActionPerformed
 
     public static void AddRowToControleEstq(Object[] dataRow) {
@@ -215,10 +231,7 @@ public class JFrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        /* Object[] opcao = {"Não", "Sim"};
-        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente apagar?", "Aviso",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
-        if (opcaoSelecionada == 1) {*/
+
         if(ControleEstq.getSelectedRow() != -1){
             ClassProd produto = new ClassProd();
             produto.setCodigo((int) ControleEstq.getValueAt(ControleEstq.getSelectedRow(), 0));
@@ -227,7 +240,7 @@ public class JFrameP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Escolha uma linha");
         }
         
-        // }
+        
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void BrnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrnComprarActionPerformed
@@ -235,14 +248,25 @@ public class JFrameP extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BrnComprarActionPerformed
 
+    private void BtnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVenderActionPerformed
+     new JFVender().setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_BtnVenderActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+     new JFEditar().setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_BtnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BrnComprar;
+    private javax.swing.JButton BtnEditar;
     private javax.swing.JButton BtnInserir;
+    private javax.swing.JButton BtnVender;
     private static javax.swing.JTable ControleEstq;
     private javax.swing.JToggleButton btnApagar;
     private javax.swing.JButton btnSair;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMensagem;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class JFCompra extends javax.swing.JFrame {
     public JFCompra() {
         initComponents();
         modelo = (DefaultComboBoxModel) CBXProduto.getModel();
-        // modelo = (ComboBoxModel) Produto.Model();
+
         this.setLocationRelativeTo(null);
     }
 
@@ -29,9 +29,7 @@ public class JFCompra extends javax.swing.JFrame {
 
         try {
             for (ClassProd Produto : ProdutoDAO.listar()) {
-
-                CBXProduto.addItem(Produto.getProduto());
-
+               CBXProduto.addItem(Produto.getProduto());
             }
         } catch (Exception e) {
             throw e;
@@ -47,8 +45,10 @@ public class JFCompra extends javax.swing.JFrame {
         TXTPreco = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         TXTQTD = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BtnComprar = new javax.swing.JButton();
+        BtnCancelar = new javax.swing.JButton();
+        TXTPRECO = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -69,63 +69,82 @@ public class JFCompra extends javax.swing.JFrame {
 
         jLabel1.setText("Quantidade:");
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        TXTQTD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                TXTQTDActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Sair");
+        BtnComprar.setText("Comprar");
+        BtnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnComprarActionPerformed(evt);
+            }
+        });
+
+        BtnCancelar.setText("Cancelar");
+        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Produto:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(init))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TXTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(TXTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                                .addComponent(jButton2)))))
-                .addGap(27, 27, 27))
+                                .addComponent(BtnComprar)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnCancelar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(init)
+                                .addGap(23, 23, 23)
+                                .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(init)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(TXTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)))
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TXTPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(init, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(BtnComprar)
+                    .addComponent(BtnCancelar))
                 .addContainerGap())
         );
 
@@ -133,24 +152,41 @@ public class JFCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBXProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBXProdutoActionPerformed
-
+  ClassProd Preco = new ClassProd();
+        
+      for (ClassProd Produto : ProdutoDAO.listar()) {
+         if (Produto.getProduto().equals(CBXProduto.getItemAt(CBXProduto.getSelectedIndex()))) {
+             Preco.setPreco(Produto.getPreco());
+                    TXTPRECO.setText(String.valueOf(Preco.getPreco()));
+         }
+           }
     }//GEN-LAST:event_CBXProdutoActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         preencherCBX();
+        ClassProd Preco = new ClassProd();
+        
+      for (ClassProd Produto : ProdutoDAO.listar()) {
+         if (Produto.getProduto().equals(CBXProduto.getItemAt(CBXProduto.getSelectedIndex()))) {
+             Preco.setPreco(Produto.getPreco());
+                    TXTPRECO.setText(String.valueOf(Preco.getPreco()));
+         }
+           }
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprarActionPerformed
         Object[] opcao = {"Não", "Sim"};
-        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente Salvar?", "Aviso",
+       
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente Comprar?\n", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
+        
         if (opcaoSelecionada == 1) {
             ClassProd PComprado = new ClassProd();
 
             for (ClassProd Produto : ProdutoDAO.listar()) {
 
                 if (Produto.getProduto().equals(CBXProduto.getItemAt(CBXProduto.getSelectedIndex()))) {
-
+                  
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setQuantidade(Produto.getQuantidade() + Integer.parseInt(TXTQTD.getText()));
                     PComprado.setProduto(Produto.getProduto());
@@ -159,7 +195,9 @@ public class JFCompra extends javax.swing.JFrame {
 
                     int linha = ProdutoDAO.Comprar(PComprado);
                     if (linha > 0) {
-                        JOptionPane.showMessageDialog(this, "Produto Comprado com sucesso!");
+                       float t = PComprado.getPreco()* Integer.parseInt(TXTQTD.getText());
+        JOptionPane.showMessageDialog(null,"Comprado Por "+t+" R$");
+        
                     } else {
                         JOptionPane.showMessageDialog(this, "Erro ao Comprar Produto.");
                     }
@@ -170,16 +208,27 @@ public class JFCompra extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BtnComprarActionPerformed
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+       this.dispose();
+       new JFrameP().setVisible(true);
+    }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void TXTQTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTQTDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTQTDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancelar;
+    private javax.swing.JButton BtnComprar;
     private javax.swing.JComboBox<String> CBXProduto;
+    private javax.swing.JLabel TXTPRECO;
     private javax.swing.JLabel TXTPreco;
     private javax.swing.JTextField TXTQTD;
     private javax.swing.JLabel init;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

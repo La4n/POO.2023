@@ -45,9 +45,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
         
         return linha;
     }
-        
-    
-
+        //
      @Override
     public int Comprar(ClassProd Produto) {
         
@@ -55,7 +53,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
         int linha = 0;
         try {
             conexao = ConexaoSql.getConexao();
-             System.out.println("TT: " + update);
+             //System.out.println("TT: " + update);
             sql = (PreparedStatement) conexao.prepareStatement(update);
             
             sql.setString(1, Produto.getProduto());
@@ -64,7 +62,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
             sql.setInt(4, Produto.getCodigo());
             sql.setInt(5, Produto.getPosicao());
             
-            System.out.println(sql);
+          //  System.out.println(sql);
             linha = sql.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +76,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
      @Override
     public int apagar(int id) {
        StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("DELETE FROM produtoo ").append("Posicao id = ?");
+        sqlBuilder.append("DELETE FROM produtoo ").append("WHERE Posicao = ?");
         
         String delete = sqlBuilder.toString();
         int linha = 0;

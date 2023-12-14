@@ -162,10 +162,6 @@ public class JFInserir extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtQuantidadeActionPerformed
 
     private void BtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarActionPerformed
-float preco;
-int quantidade;
-quantidade = Integer.parseInt(TxtQuantidade.getText());
-preco = Float.parseFloat(TxtPreco.getText());
 
  for( ClassProd Produto : ProdutoDAO.listar()){
 posi = 1 + Produto.getPosicao() ;
@@ -189,13 +185,13 @@ posi = 1 + Produto.getPosicao() ;
         }
         
         this.dispose();
-       
+       new JFrameP().setVisible(true);
     }//GEN-LAST:event_BtnSalvarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-JOptionPane.showMessageDialog(this, "Erro ao inserir Produto.");
+
    this.dispose();
-   
+   new JFrameP().setVisible(true);
         
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
