@@ -1,6 +1,7 @@
 
 package Dao;
 
+import Dao.ProdDAO;
 import java.util.List;
 import projhln.ClassProd;
 import Conexao.ConexaoSql;
@@ -21,7 +22,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
     public int inserir(ClassProd Produto) {
     
          StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("insert into produtoo(Posicao, Produto, Quantidade, Preco, Codigo)").append("values(?, ?, ?, ?, ?)");
+        sqlBuilder.append("insert into produtoo(Posicao, Produto, Quantidade, Preco, precoV)").append("values(?, ?, ?, ?, ?)");
      
         String insert = sqlBuilder.toString();
         int linha = 0;
@@ -34,7 +35,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
             sql.setString(2, Produto.getProduto());
             sql.setInt(3, Produto.getQuantidade());
             sql.setFloat(4,Produto.getPreco());
-            sql.setInt(5, Produto.getCodigo());
+            sql.setFloat(5, Produto.getPrecoVenda());
             
             linha = sql.executeUpdate();
         } catch (Exception e) {
@@ -49,7 +50,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
      @Override
     public int Comprar(ClassProd Produto) {
         
-        String update = "UPDATE produtoo SET Produto = ?, Quantidade = ?,  Preco = ?, Codigo = ? WHERE Posicao = ?";
+        String update = "UPDATE produtoo SET Produto = ?, Quantidade = ?,  Preco = ?, precoV = ? WHERE Posicao = ?";
         int linha = 0;
         try {
             conexao = ConexaoSql.getConexao();
@@ -59,7 +60,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
             sql.setString(1, Produto.getProduto());
             sql.setInt(2, Produto.getQuantidade());
             sql.setFloat(3, Produto.getPreco());
-            sql.setInt(4, Produto.getCodigo());
+            sql.setFloat(4, Produto.getPrecoVenda());
             sql.setInt(5, Produto.getPosicao());
             
           //  System.out.println(sql);
@@ -87,7 +88,6 @@ public class ProdutoDAOJDBC implements ProdDAO{
             sql = (PreparedStatement) conexao.prepareStatement(delete);
             sql.setInt(1, id);
             linha = sql.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -95,8 +95,40 @@ public class ProdutoDAOJDBC implements ProdDAO{
         }
 
         return linha;
+
     }
 
+    @Override
+    public int VerificarEsq(int i){
+   int qtde = 0;
+         String select = "SELECT Quantidade FROM produtoo WHERE Posicao = ?";
+        
+           try {
+            conexao = ConexaoSql.getConexao();
+
+            sql = (PreparedStatement) conexao.prepareStatement(select);
+            sql.setInt(1, i);
+
+            rset = sql.executeQuery();
+
+            while (rset.next()) {
+                
+                qtde = rset.getInt("Quantidade");
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            fecharConexao();
+        }
+
+        return qtde;
+    }
+        
+
+    
+    
      @Override
     public List<ClassProd> listar() {
      
@@ -120,7 +152,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
                 Produto.setProduto(rset.getString("Produto"));
                 Produto.setQuantidade(rset.getInt("Quantidade"));
                 Produto.setPreco(rset.getFloat("Preco"));
-                Produto.setCodigo(rset.getInt("Codigo"));
+                Produto.setPrecoVenda(rset.getFloat("precoV"));
           
 
                 produtos.add(Produto);
@@ -135,6 +167,7 @@ public class ProdutoDAOJDBC implements ProdDAO{
         return produtos;
     }
 
+   
      @Override
     public ClassProd listar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

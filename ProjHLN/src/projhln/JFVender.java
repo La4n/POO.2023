@@ -3,6 +3,7 @@ package projhln;
 import Dao.DAOFactory;
 import Dao.ProdDAO;
 import com.sun.glass.events.WindowEvent;
+import java.awt.Color;
 import java.sql.Connection;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -97,24 +98,23 @@ public class JFVender extends javax.swing.JFrame {
                         .addComponent(BTNVender)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BTNCancelar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(init)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(Qtd)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(CBXVender, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(init)
+                                .addGap(29, 29, 29)
+                                .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Qtd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CBXVender, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +146,7 @@ public class JFVender extends javax.swing.JFrame {
         
       for (ClassProd Produto : ProdutoDAO.listar()) {
          if (Produto.getProduto().equals(CBXVender.getItemAt(CBXVender.getSelectedIndex()))) {
-             Preco.setPreco(Produto.getPreco());
+             Preco.setPrecoVenda(Produto.getPrecoVenda());
                     TXTPRECO.setText(String.valueOf(Preco.getPreco()));
          }
            }
@@ -155,18 +155,19 @@ public class JFVender extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         preencherCBX();
         ClassProd Preco = new ClassProd();
-        
+          setBackground(Color.yellow);
       for (ClassProd Produto : ProdutoDAO.listar()) {
          if (Produto.getProduto().equals(CBXVender.getItemAt(CBXVender.getSelectedIndex()))) {
-             Preco.setPreco(Produto.getPreco());
-                    TXTPRECO.setText(String.valueOf(Preco.getPreco()));
+             Preco.setPrecoVenda(Produto.getPrecoVenda());
+                    TXTPRECO.setText(String.valueOf(Preco.getPrecoVenda()));
          }
            }
+      
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void BTNVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNVenderActionPerformed
       Object[] opcao = {"Não", "Sim"};
-       
+        int Verif;
         int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente Vender?\n", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
         
@@ -178,23 +179,33 @@ public class JFVender extends javax.swing.JFrame {
                 if (Produto.getProduto().equals(CBXVender.getItemAt(CBXVender.getSelectedIndex()))) {
                   
                     PComprado.setPosicao(Produto.getPosicao());
-                    PComprado.setQuantidade(Produto.getQuantidade() - Integer.parseInt(TXTQTD.getText()));
+                    PComprado.setQuantidade(Integer.parseInt(TXTQTD.getText()));
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setCodigo(Produto.getCodigo());
-
+                    PComprado.setPrecoVenda(Produto.getPrecoVenda());
+                    
+         
+                    Verif = ProdutoDAO.VerificarEsq(Produto.getPosicao());
+                    
+                    if( Verif < PComprado.getQuantidade()){
+                        JOptionPane.showMessageDialog(null, "A QUANTIDADE INSERIDA É MAIOR QUE A DO ESTOQUE!!\n("+Produto.getQuantidade()+")");
+                    }else{
+                    PComprado.setQuantidade(Produto.getQuantidade() - PComprado.getQuantidade());
+                    
                     int linha = ProdutoDAO.Comprar(PComprado);
                     if (linha > 0) {
-                       float t = PComprado.getPreco() * Integer.parseInt(TXTQTD.getText());
+                       float t = PComprado.getPrecoVenda()* Integer.parseInt(TXTQTD.getText());
         JOptionPane.showMessageDialog(null,"Vendido Por "+t+" R$");
         
                     } else {
-                        JOptionPane.showMessageDialog(this, "Erro ao Comprar Produto.");
+                        JOptionPane.showMessageDialog(this, "Erro ao Vender Produto.");
                     }
                     new JFrameP().setVisible(true);
                     this.dispose();
                 }
-            } 
+                    
+            }
+            }
         }
     }//GEN-LAST:event_BTNVenderActionPerformed
 

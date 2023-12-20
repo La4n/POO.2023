@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class ClassProd {
     private String Produto;
-    private float preco;
-    private int Quantidade,Codigo,Posicao;
+    private float preco,PrecoVenda;
+    private int Quantidade,Posicao;
 
     public String getProduto() {
         return Produto;
@@ -24,20 +24,20 @@ public class ClassProd {
         this.preco = preco;
     }
 
+    public float getPrecoVenda() {
+        return PrecoVenda;
+    }
+
+    public void setPrecoVenda(float PrecoVenda) {
+        this.PrecoVenda = PrecoVenda;
+    }
+
     public int getQuantidade() {
         return Quantidade;
     }
 
     public void setQuantidade(int Quantidade) {
         this.Quantidade = Quantidade;
-    }
-
-    public int getCodigo() {
-        return Codigo;
-    }
-
-    public void setCodigo(int Codigo) {
-        this.Codigo = Codigo;
     }
 
     public int getPosicao() {
@@ -51,11 +51,11 @@ public class ClassProd {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.Produto);
-        hash = 67 * hash + Float.floatToIntBits(this.preco);
-        hash = 67 * hash + this.Quantidade;
-        hash = 67 * hash + this.Codigo;
-        hash = 67 * hash + this.Posicao;
+        hash = 53 * hash + Objects.hashCode(this.Produto);
+        hash = 53 * hash + Float.floatToIntBits(this.preco);
+        hash = 53 * hash + Float.floatToIntBits(this.PrecoVenda);
+        hash = 53 * hash + this.Quantidade;
+        hash = 53 * hash + this.Posicao;
         return hash;
     }
 
@@ -74,10 +74,10 @@ public class ClassProd {
         if (Float.floatToIntBits(this.preco) != Float.floatToIntBits(other.preco)) {
             return false;
         }
-        if (this.Quantidade != other.Quantidade) {
+        if (Float.floatToIntBits(this.PrecoVenda) != Float.floatToIntBits(other.PrecoVenda)) {
             return false;
         }
-        if (this.Codigo != other.Codigo) {
+        if (this.Quantidade != other.Quantidade) {
             return false;
         }
         if (this.Posicao != other.Posicao) {
@@ -88,8 +88,6 @@ public class ClassProd {
         }
         return true;
     }
-
-   
 
     
     

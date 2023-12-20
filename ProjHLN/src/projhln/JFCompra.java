@@ -191,7 +191,7 @@ public class JFCompra extends javax.swing.JFrame {
                     PComprado.setQuantidade(Produto.getQuantidade() + Integer.parseInt(TXTQTD.getText()));
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setCodigo(Produto.getCodigo());
+                    PComprado.setPrecoVenda(Produto.getPrecoVenda());
 
                     int linha = ProdutoDAO.Comprar(PComprado);
                     if (linha > 0) {

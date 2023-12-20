@@ -37,7 +37,7 @@ public class JFrameP extends javax.swing.JFrame {
         try {
             for (ClassProd Produto : ProdutoDAO.listar()) {
                 modelo.addRow(new Object[]{Produto.getPosicao(), Produto.getProduto(), Produto.getQuantidade(), Produto.getPreco(),
-                    Produto.getCodigo()}
+                    Produto.getPrecoVenda()}
                 );
             }
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class JFrameP extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Posicao", "Produto", "Quantidade", "Preco", "Codigo"
+                "Posicao", "Produto", "Quantidade", "Preco", "Preco de Venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -141,9 +141,7 @@ public class JFrameP extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BtnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,8 +154,8 @@ public class JFrameP extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnApagar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnComprar, BtnEditar, BtnInserir, BtnVender, btnApagar, btnSair});
@@ -202,12 +200,16 @@ public class JFrameP extends javax.swing.JFrame {
 
     public void apagar() {
         try {
+             ClassProd produto = new ClassProd();
             Integer i = (Integer) modelo.getValueAt(ControleEstq.getSelectedRow(), 0);
 
             int linha = ProdutoDAO.apagar(i);
 
             if (linha > 0) {
                 modelo.removeRow(ControleEstq.getSelectedRow());
+              for (ClassProd Produto : ProdutoDAO.listar()) { 
+            
+              }
                 JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir.");
@@ -233,8 +235,8 @@ public class JFrameP extends javax.swing.JFrame {
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
 
         if(ControleEstq.getSelectedRow() != -1){
-            ClassProd produto = new ClassProd();
-            produto.setCodigo((int) ControleEstq.getValueAt(ControleEstq.getSelectedRow(), 0));
+           // ClassProd produto = new ClassProd();
+          //  produto.setPrecoVenda((int) ControleEstq.getValueAt(ControleEstq.getSelectedRow(), 0));
             apagar();
         } else {
             JOptionPane.showMessageDialog(this, "Escolha uma linha");

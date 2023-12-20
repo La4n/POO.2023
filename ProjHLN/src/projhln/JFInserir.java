@@ -24,6 +24,7 @@ public class JFInserir extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
         TxtProduto = new javax.swing.JTextField();
         TxtQuantidade = new javax.swing.JTextField();
         TxtPreco = new javax.swing.JTextField();
@@ -35,7 +36,10 @@ public class JFInserir extends javax.swing.JFrame {
         BtnSalvar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
 
+        jLabel5.setText("jLabel5");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusCycleRoot(false);
 
         TxtProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +71,7 @@ public class JFInserir extends javax.swing.JFrame {
 
         jLabel3.setText("Preço:");
 
-        jLabel4.setText("Codigo:");
+        jLabel4.setText("Preço Venda:");
 
         BtnSalvar.setText("Salvar");
         BtnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +115,7 @@ public class JFInserir extends javax.swing.JFrame {
                         .addComponent(BtnSalvar)
                         .addGap(18, 18, 18)
                         .addComponent(BtnCancelar)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnCancelar, BtnSalvar});
@@ -139,7 +143,7 @@ public class JFInserir extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnSalvar)
                     .addComponent(BtnCancelar))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,7 +177,7 @@ posi = 1 + Produto.getPosicao() ;
         Produto.setProduto(TxtProduto.getText());
         Produto.setQuantidade(Integer.parseInt(TxtQuantidade.getText()));
         Produto.setPreco(Float.parseFloat(TxtPreco.getText()));
-        Produto.setCodigo(Integer.parseInt(TxtCodigo.getText()));
+        Produto.setPrecoVenda(Float.parseFloat(TxtCodigo.getText()));
         
   //      JFrameP.AddRowToControleEstq(new Object[]{TxtProduto.getText(),TxtQuantidade.getText(),TxtPreco.getText(),TxtCodigo.getText()});
      
@@ -208,5 +212,6 @@ posi = 1 + Produto.getPosicao() ;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,7 +41,7 @@ private void preencherCBX2() {
                CBXITEM.addItem("Produto");
                CBXITEM.addItem("Quantidade");
                CBXITEM.addItem("Preco");
-               CBXITEM.addItem("Codigo");
+               CBXITEM.addItem("PrecoVenda");
     }
 
     @SuppressWarnings("unchecked")
@@ -182,7 +182,7 @@ private void preencherCBX2() {
                     
                     PComprado.setQuantidade(Produto.getQuantidade());
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setCodigo(Produto.getCodigo());
+                    PComprado.setPrecoVenda(Produto.getPrecoVenda());
                       
                   }else if("Quantidade" == CBXITEM.getItemAt(CBXITEM.getSelectedIndex()) ){          
                     PComprado.setPosicao(Produto.getPosicao());
@@ -191,19 +191,19 @@ private void preencherCBX2() {
                     PComprado.setQuantidade(Integer.parseInt(TXTEDT.getText()));
                      
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setCodigo(Produto.getCodigo());
+                    PComprado.setPrecoVenda(Produto.getPrecoVenda());
                   }else if("Preco"  == CBXITEM.getItemAt(CBXITEM.getSelectedIndex())){
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setQuantidade(Produto.getQuantidade());
                     PComprado.setPreco(Float.parseFloat(TXTEDT.getText()));
-                    PComprado.setCodigo(Produto.getCodigo());
-                  }else if("Codigo"  == CBXITEM.getItemAt(CBXITEM.getSelectedIndex())){
+                    PComprado.setPrecoVenda(Produto.getPrecoVenda());
+                  }else if("PrecoVenda"  == CBXITEM.getItemAt(CBXITEM.getSelectedIndex())){
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setQuantidade(Produto.getQuantidade());
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setCodigo(Integer.parseInt(TXTEDT.getText()));
+                    PComprado.setPrecoVenda(Integer.parseInt(TXTEDT.getText()));
                   }
                   
                     int linha = ProdutoDAO.Comprar(PComprado);
