@@ -57,6 +57,7 @@ public class JFrameP extends javax.swing.JFrame {
         btnApagar = new javax.swing.JToggleButton();
         BtnVender = new javax.swing.JButton();
         BtnEditar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(350, 250));
@@ -73,6 +74,7 @@ public class JFrameP extends javax.swing.JFrame {
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ControleEstq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,12 +94,15 @@ public class JFrameP extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ControleEstq);
 
-        BtnInserir.setText("Inserir");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 659, 211));
+
+        BtnInserir.setText("Cadastrar");
         BtnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnInserirActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnInserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 105, -1));
 
         BrnComprar.setText("Comprar");
         BrnComprar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +110,7 @@ public class JFrameP extends javax.swing.JFrame {
                 BrnComprarActionPerformed(evt);
             }
         });
+        getContentPane().add(BrnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 105, -1));
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +118,7 @@ public class JFrameP extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 105, -1));
 
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +126,7 @@ public class JFrameP extends javax.swing.JFrame {
                 btnApagarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnApagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 105, -1));
 
         BtnVender.setText("Vender");
         BtnVender.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +134,7 @@ public class JFrameP extends javax.swing.JFrame {
                 BtnVenderActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, 105, -1));
 
         BtnEditar.setText("Editar");
         BtnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,50 +142,11 @@ public class JFrameP extends javax.swing.JFrame {
                 BtnEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 105, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BtnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(BrnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnVender)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnApagar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BrnComprar, BtnEditar, BtnInserir, BtnVender, btnApagar, btnSair});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnInserir)
-                    .addComponent(BrnComprar)
-                    .addComponent(btnSair)
-                    .addComponent(btnApagar)
-                    .addComponent(BtnVender)
-                    .addComponent(BtnEditar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BrnComprar, BtnInserir, btnSair});
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\aluno\\Pictures\\aaaaaaaaaa.png")); // NOI18N
+        jLabel1.setText("       ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 530, 260));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -269,6 +239,7 @@ public class JFrameP extends javax.swing.JFrame {
     private static javax.swing.JTable ControleEstq;
     private javax.swing.JToggleButton btnApagar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

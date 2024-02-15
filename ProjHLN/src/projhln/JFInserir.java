@@ -1,3 +1,4 @@
+
 package projhln;
 
 import Dao.DAOFactory;
@@ -11,15 +12,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class JFInserir extends javax.swing.JFrame {
 
-    boolean verificador = false;
-    ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
-    int posi;
-
+  ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
+       int  posi;
     public JFInserir() {
         initComponents();
-
+   
+      
     }
-
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -167,49 +167,39 @@ public class JFInserir extends javax.swing.JFrame {
 
     private void BtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarActionPerformed
 
-        for (ClassProd Produto : ProdutoDAO.listar()) {
-            posi = 1 + Produto.getPosicao();
-
-            if (TxtProduto.getText().equals(Produto.getProduto())) {
-
-                JOptionPane.showMessageDialog(this, "!! O Produto Já Inserido !!\n","ERRO", JOptionPane.WARNING_MESSAGE);
-               
-                
-                verificador = true;
-            this.dispose();
-            new JFrameP().setVisible(true);
-            }
-        }
-        
+ for( ClassProd Produto : ProdutoDAO.listar()){
+posi = 1 + Produto.getPosicao() ;
+ }
         ClassProd Produto = new ClassProd();
 
-        if(verificador == false){
-            
+        
         Produto.setPosicao(posi);
         Produto.setProduto(TxtProduto.getText());
         Produto.setQuantidade(Integer.parseInt(TxtQuantidade.getText()));
         Produto.setPreco(Float.parseFloat(TxtPreco.getText()));
         Produto.setPrecoVenda(Float.parseFloat(TxtCodigo.getText()));
-
-        int linha = ProdutoDAO.inserir(Produto);
+        
+  //      JFrameP.AddRowToControleEstq(new Object[]{TxtProduto.getText(),TxtQuantidade.getText(),TxtPreco.getText(),TxtCodigo.getText()});
+     
+   int linha = ProdutoDAO.inserir(Produto);
         if (linha > 0) {
             JOptionPane.showMessageDialog(this, "Produto inserido com sucesso!");
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao inserir Produto.");
         }
-
+        
         this.dispose();
-        new JFrameP().setVisible(true);
-        }
+       new JFrameP().setVisible(true);
     }//GEN-LAST:event_BtnSalvarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
 
-        this.dispose();
-        new JFrameP().setVisible(true);
-
+   this.dispose();
+   new JFrameP().setVisible(true);
+        
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;

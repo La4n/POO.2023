@@ -17,7 +17,8 @@ public class JFCompra extends javax.swing.JFrame {
     Connection conexao = null;
     ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
     private final DefaultComboBoxModel modelo;
-
+    boolean tru = false;
+    
     public JFCompra() {
         initComponents();
         modelo = (DefaultComboBoxModel) CBXProduto.getModel();
@@ -119,14 +120,14 @@ public class JFCompra extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(CBXProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TXTPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -141,7 +142,7 @@ public class JFCompra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnComprar)
                     .addComponent(BtnCancelar))
@@ -188,13 +189,21 @@ public class JFCompra extends javax.swing.JFrame {
                 if (Produto.getProduto().equals(CBXProduto.getItemAt(CBXProduto.getSelectedIndex()))) {
                   
                     PComprado.setPosicao(Produto.getPosicao());
-                    PComprado.setQuantidade(Produto.getQuantidade() + Integer.parseInt(TXTQTD.getText()));
+                    
+                    if(TXTQTD.getText().matches("[^0-9]")){
+                        PComprado.setQuantidade(Produto.getQuantidade());
+                         JOptionPane.showMessageDialog(null,"PorFavor Digite apenas Numeros!"); 
+                     }else{
+                         PComprado.setQuantidade(Produto.getQuantidade() + Integer.parseInt(TXTQTD.getText()));
+                         tru = true;
+                }
+                    
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setPreco(Produto.getPreco());
                     PComprado.setPrecoVenda(Produto.getPrecoVenda());
 
                     int linha = ProdutoDAO.Comprar(PComprado);
-                    if (linha > 0) {
+                    if (linha > 0 && tru == true) {
                        float t = PComprado.getPreco()* Integer.parseInt(TXTQTD.getText());
         JOptionPane.showMessageDialog(null,"Comprado Por "+t+" R$");
         

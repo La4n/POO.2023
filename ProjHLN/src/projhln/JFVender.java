@@ -18,7 +18,8 @@ public class JFVender extends javax.swing.JFrame {
     Connection conexao = null;
     ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
     private final DefaultComboBoxModel modelo;
- 
+    boolean tru = false;
+    
     public JFVender() {
         initComponents();
         modelo = (DefaultComboBoxModel) CBXVender.getModel();
@@ -92,29 +93,30 @@ public class JFVender extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BTNVender)
+                        .addComponent(init)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Qtd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BTNCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(init)
-                                .addGap(29, 29, 29)
-                                .addComponent(TXTPRECO, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Qtd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(TXTQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CBXVender, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(CBXVender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BTNVender)
+                        .addGap(18, 18, 18)
+                        .addComponent(BTNCancelar)))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +137,7 @@ public class JFVender extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTNVender)
                     .addComponent(BTNCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,7 +157,7 @@ public class JFVender extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         preencherCBX();
         ClassProd Preco = new ClassProd();
-          setBackground(Color.yellow);
+      
       for (ClassProd Produto : ProdutoDAO.listar()) {
          if (Produto.getProduto().equals(CBXVender.getItemAt(CBXVender.getSelectedIndex()))) {
              Preco.setPrecoVenda(Produto.getPrecoVenda());
@@ -179,7 +181,13 @@ public class JFVender extends javax.swing.JFrame {
                 if (Produto.getProduto().equals(CBXVender.getItemAt(CBXVender.getSelectedIndex()))) {
                   
                     PComprado.setPosicao(Produto.getPosicao());
-                    PComprado.setQuantidade(Integer.parseInt(TXTQTD.getText()));
+                    
+                     if(TXTQTD.getText().matches("[^0-9]")){
+                         JOptionPane.showMessageDialog(null,"PorFavor Digite apenas Numeros!"); 
+                     }else{
+                         PComprado.setQuantidade(Integer.parseInt(TXTQTD.getText()));
+                         tru = true;
+                }
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setPreco(Produto.getPreco());
                     PComprado.setPrecoVenda(Produto.getPrecoVenda());
@@ -193,7 +201,7 @@ public class JFVender extends javax.swing.JFrame {
                     PComprado.setQuantidade(Produto.getQuantidade() - PComprado.getQuantidade());
                     
                     int linha = ProdutoDAO.Comprar(PComprado);
-                    if (linha > 0) {
+                    if (linha > 0 && tru == true) {
                        float t = PComprado.getPrecoVenda()* Integer.parseInt(TXTQTD.getText());
         JOptionPane.showMessageDialog(null,"Vendido Por "+t+" R$");
         

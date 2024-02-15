@@ -19,6 +19,8 @@ public class JFEditar extends javax.swing.JFrame {
     ProdDAO ProdutoDAO = DAOFactory.criarProdDAO();
     private final DefaultComboBoxModel modelo;
     
+    boolean verif = false ;
+    
     public JFEditar() {
         initComponents();
         modelo = (DefaultComboBoxModel) CBXProduto.getModel();
@@ -187,27 +189,51 @@ private void preencherCBX2() {
                   }else if("Quantidade" == CBXITEM.getItemAt(CBXITEM.getSelectedIndex()) ){          
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setProduto(Produto.getProduto());
-                     
-                    PComprado.setQuantidade(Integer.parseInt(TXTEDT.getText()));
-                     
+                    
+                      if(TXTEDT.getText().matches("[^0-9]")){
+                          PComprado.setQuantidade(Produto.getQuantidade());
+                          JOptionPane.showMessageDialog(null,"PorFavor Digite apenas Numeros!");                 
+                   }else{
+                          PComprado.setQuantidade(Integer.parseInt(TXTEDT.getText()));
+                       verif = true;
+                   }
+                      
                     PComprado.setPreco(Produto.getPreco());
                     PComprado.setPrecoVenda(Produto.getPrecoVenda());
                   }else if("Preco"  == CBXITEM.getItemAt(CBXITEM.getSelectedIndex())){
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setQuantidade(Produto.getQuantidade());
-                    PComprado.setPreco(Float.parseFloat(TXTEDT.getText()));
+                    
+                     if(TXTEDT.getText().matches("[^0-9]")){
+                         PComprado.setPreco(Produto.getPreco());
+                         JOptionPane.showMessageDialog(null,"PorFavor Digite apenas Numeros!");                 
+                   }else{
+                         PComprado.setPreco(Float.parseFloat(TXTEDT.getText()));
+                      verif = true;
+                   }
+                     
                     PComprado.setPrecoVenda(Produto.getPrecoVenda());
-                  }else if("PrecoVenda"  == CBXITEM.getItemAt(CBXITEM.getSelectedIndex())){
+                  }else if("PrecoVenda" == (CBXITEM.getItemAt(CBXITEM.getSelectedIndex()))){
                     PComprado.setPosicao(Produto.getPosicao());
                     PComprado.setProduto(Produto.getProduto());
                     PComprado.setQuantidade(Produto.getQuantidade());
                     PComprado.setPreco(Produto.getPreco());
-                    PComprado.setPrecoVenda(Integer.parseInt(TXTEDT.getText()));
+                 
+                   if(TXTEDT.getText().matches("[^0-9]")){
+                         PComprado.setPrecoVenda(Produto.getPrecoVenda());
+                         JOptionPane.showMessageDialog(null,"PorFavor Digite apenas Numeros!");                 
+                            
+                   }else{
+                    PComprado.setPrecoVenda(Float.parseFloat(TXTEDT.getText()));
+                    verif = true;
+                   }
+
+                  
                   }
                   
                     int linha = ProdutoDAO.Comprar(PComprado);
-                    if (linha > 0) {
+                    if (linha > 0 && verif == true) {
                    JOptionPane.showMessageDialog(null,"Editado Com Sucesso");
         
                     } else {
